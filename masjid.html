@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masjid</title>
+
+</head>
+<body>
+    <canvas id="canvas" width="1000" height="500" style="border: 1px solid black"></canvas>
+    <script>
+   
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d")
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(0, canvas.height / 2 + 150, canvas.width, canvas.height)
+       
+
+        function createDom(x, y, r, color, withEdge = true){
+             
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.arc(x, y, r, Math.PI, 2 * Math.PI);
+
+            
+            ctx.moveTo(x-r, y);
+            ctx.lineTo(x+r, y);
+
+            
+            ctx.lineWidth = r/10;
+            ctx.fill();
+
+            if(withEdge){ 
+                ctx.beginPath();
+                ctx.moveTo(x, y-r);
+                ctx.lineTo(x, y - r - (r/4));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(x, y - r - (r/4) - (r/4), (r/4), 1/4 * Math.PI, 3/2 * Math.PI);
+                ctx.stroke();
+            }
+            
+        }
+
+        createDom(canvas.width / 2 - (2 * 100), canvas.height / 2 - 100, 35, "green");
+        createDom(canvas.width / 2, canvas.height / 2, 100, "green");
+        createDom(canvas.width / 2 + (2 * 100), canvas.height / 2 - 100, 35, "green");
+
+        function createWall(x, y, w, h, color){
+            ctx.beginPath();
+            ctx.rect(x, y, w, h);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ctx.lineWidth = 5;
+            ctx.fill();
+        }
+
+        createWall(canvas.width / 2 - 100, canvas.height / 2, 200, 200, "gold");
+        createWall(canvas.width / 2 + 100, canvas.height / 2, 150, 200, "teal");
+        createWall(canvas.width / 2 - 100 - 150, canvas.height / 2, 150, 200, "teal");
+        createWall(canvas.width / 2 - (2 * 100) - 35, canvas.height / 2 - 100, (2 * 35), 100, "yellow");
+        createWall(canvas.width / 2 + (2 * 100) - 35, canvas.height / 2 - 100, (2 * 35), 100, "yellow");
+
+
+        function createDoor (x, y, width, height, color){
+            createWall(x - 2 * 25, y / 2 + 100, width, height, color);
+            createDom(x , y / 2 + 100, width / 2, height / 2, color);
+        }
+
+        createDoor(canvas.width / 2, canvas.height, 100, 100, "Coral");
+        createDoor(canvas.width / 2 + 2 * 90, canvas.height, 100, 100, "white");
+        createDoor(canvas.width / 2 - 2 * 90, canvas.height, 100, 100, "white");
+
+        ctx.fillStyle = "gold"
+        ctx.lineWidth = '5';
+        ctx.fillRect(445,265,120,30);
+
+        ctx.fillStyle = 'black';
+        ctx.font = '25px Arial';
+        ctx.fillText("Masjid Nurul Iman", canvas.width / 2 - 45, canvas.height / 2 + 34, 100);  
+
+        createWall(canvas.width / 2 - 100 - 100 - 75, canvas.height / 2 + 200, 550, 15, "gray");
+        ctx.stroke();
+        createWall(canvas.width / 2 - 100 - 100 - 75 - 25, canvas.height / 2 + 200 + 15, 600, 15, "gray");
+        ctx.stroke();
+        canvas.style.backgroundColor = "lightblue";
+        
+
+    </script>
+</body>
+</html>
